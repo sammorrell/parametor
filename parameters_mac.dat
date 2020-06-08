@@ -1,0 +1,147 @@
+! Torus v2 parameter file for JMP configuration
+maxmemory 24000
+
+dustphysics T   ! use dust microphysics 
+
+radeq F  ! perform a radiative equilibrium calculation
+
+! AMR grid parameters
+
+! For generating the grid
+readgrid F
+writegrid T  
+outputfile vh1.grid 
+
+! For using an existing grid
+!readgrid T
+!writegrid F  
+!inputfile vh1.grid 
+
+amrgridsize 9.257e9 ! in units of 10^10cm
+amr3d T  ! this is a 3d model
+
+!!amrgridcentrex 4.6285e9 
+!!amrgridcentrey 4.6285e9
+!!amrgridcentrez 4.6285e9
+
+! Fixed grid resolution
+mindepthamr 6 !8
+maxdepthamr 6 !8
+
+! Source parameters
+!This time we have 3 sources
+nsource 3  ! there is just one source
+radius1 9.1  ! it has a radius of 1 solar radius
+teff1 58546.  ! the source effective temperature 
+contflux1 blackbody ! the continuum flux is assumed to be a blackbody
+mass1 35.0   ! the source has a mass of 35 solar masses
+sourcepos1 0. 0. 0  ! it is located at the grid cntre
+
+radius2 8.6  ! it has a radius of 1 solar radius
+teff2 55234.  ! the source effective temperature 
+contflux2 blackbody ! the continuum flux is assumed to be a blackbody
+mass2 32.0   ! the source has a mass of 32 solar masses
+sourcepos2 0. 0. 0  ! it is located at the grid cntre
+
+radius3 7.9  ! it has a radius of 1 solar radius
+teff3 50641.  ! the source effective temperature 
+contflux3 blackbody ! the continuum flux is assumed to be a blackbody
+mass3 28.0   ! the source has a mass of 28 solar masses
+sourcepos3 0. 0. 0  ! it is located at the grid cntre
+
+! Geometry specific parameters
+
+geometry fitsfile
+fitsgridfile sc3dinter_3d_0135.fits 
+
+! Dust grain properties
+
+iso_scatter T      ! Assume isotropic scattering (assumed by benchmark)
+graintype1 sil_dl  ! Drain and Lee silicates
+grainfrac1 0.01    ! grain mass fraction (in terms of gas)
+amin1 0.12         ! minimum grain size (microns)
+amax1 0.1201       ! maximum grain size (microns)
+qdist1 0.01        ! power law index (flat)
+
+! Output SEDs
+
+spectrum F   ! produce a spectrum
+
+! SED parameters
+
+nphotons 1000000      ! the number of photon packets in each SED
+
+ninc 19            ! number of inclinations
+firstinc 0        ! the first inclination (degrees)
+lastinc 180        ! the last inclination (degrees)
+filename test        ! the root of the output filename
+sised T              ! Write spectrum as lambda vs F lambda in SI units
+distance 2.25558e-8  ! Distance to observer
+sedlammin 0.12       ! minimum wavelength in SED file
+sedlammax 1000       ! maximum wavelength in SED file
+sedwavlin F          ! Linear spacing in SED file? 
+sedcosspaced F
+
+image T
+nimage 19
+lambdaimage  220000.0
+imageaxisunits pc
+npixels 256
+positionangle 0.0
+
+imagefile1 test_22um_0.fits
+inclination1 0.0
+
+imagefile2 test_22um_10.fits
+inclination2 10.0 
+
+imagefile3 test_22um_20.fits
+inclination3 20.0
+
+imagefile4 test_22um_30.fits
+inclination4 30.0
+
+imagefile5 test_22um_40.fits
+inclination5 40.0
+
+imagefile6 test_22um_50.fits
+inclination6 50.0
+
+imagefile7 test_22um_60.fits
+inclination7 60.0
+
+imagefile8 test_22um_70.fits
+inclination8 70.0
+
+imagefile9 test_22um_80.fits
+inclination9 80.0
+
+imagefile10 test_22um_90.fits
+inclination10 90.0
+
+imagefile11 test_22um_100.fits
+inclination11 100.0
+
+imagefile12 test_22um_110.fits
+inclination12 110.0
+
+imagefile13 test_22um_120.fits
+inclination13 120.0
+
+imagefile14 test_22um_130.fits
+inclination14 130.0
+
+imagefile15 test_22um_140.fits
+inclination15 140.0
+
+imagefile16 test_22um_150.fits
+inclination16 150.0
+
+imagefile17 test_22um_160.fits
+inclination17 160.0
+
+imagefile18 test_22um_170.fits
+inclination18 170.0
+
+imagefile19 test_22um_180.fits
+inclination19 180.0

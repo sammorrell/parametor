@@ -1,0 +1,162 @@
+! Torus v2 parameter file for JMP configuration
+
+maxmemory 24000
+
+dustphysics T   ! use dust microphysics 
+
+radeq F  ! perform a radiative equilibrium calculation
+
+! AMR grid parameters
+
+! For generating the grid
+readgrid T
+writegrid F 
+outputfile vh1.grid 
+
+! For using an existing grid
+!readgrid T
+!writegrid F  
+inputfile vh1.grid 
+
+amrgridsize 9.257e9 ! in units of 10^10cm
+amr3d T  ! this is a 3d model
+
+!!amrgridcentrex 4.6285e9 
+!!amrgridcentrey 4.6285e9
+!!amrgridcentrez 4.6285e9
+
+! Fixed grid resolution
+mindepthamr 7 !8
+maxdepthamr 9 !8
+
+!-------------------------------- Source parameters --------------------------
+!This time we have 3 sources
+nsource 3  ! there is just one source
+radius1 9.1  ! it has a radius of 1 solar radius
+teff1 58546.  ! the source effective temperature 
+contflux1 kurucz ! the continuum flux is assumed to be a blackbody
+mass1 35.0   ! the source has a mass of 35 solar masses
+sourcepos1 0. 0. 0  ! it is located at the grid cntre
+
+radius2 8.6  ! it has a radius of 1 solar radius
+teff2 55234.  ! the source effective temperature 
+contflux2 kurucz ! the continuum flux is assumed to be a blackbody
+mass2 32.0   ! the source has a mass of 32 solar masses
+sourcepos2 0. 0. 0  ! it is located at the grid cntre
+
+radius3 7.9  ! it has a radius of 1 solar radius
+teff3 50641.  ! the source effective temperature 
+contflux3 kurucz ! the continuum flux is assumed to be a blackbody
+mass3 28.0   ! the source has a mass of 28 solar masses
+sourcepos3 0. 0. 0  ! it is located at the grid cntre
+
+! Geometry specific parameters
+
+geometry fitsfile
+fitsgridfile /Volumes/data/safm201/input_data/sc3dinter_3d_0135.fits 
+
+! Dust grain properties
+
+iso_scatter T      ! Assume isotropic scattering (assumed by benchmark)
+graintype1 sil_dl  ! Drain and Lee silicates
+grainfrac1 0.01    ! grain mass fraction (in terms of gas)
+amin1 0.12         ! minimum grain size (microns)
+amax1 0.1201       ! maximum grain size (microns)
+qdist1 0.01        ! power law index (flat)
+
+! Output SEDs
+!-------------------------------- SED Config --------------------------
+spectrum F   ! produce a spectrum
+
+! SED parameters
+
+nphotons 1000000      ! the number of photon packets in each SED
+
+ninc 19            ! number of inclinations
+firstinc 90        ! the first inclination (degrees)
+lastinc 90        ! the last inclination (degrees)
+filename test        ! the root of the output filename
+sised T              ! Write spectrum as lambda vs F lambda in SI units
+distance 2.25558e-8  ! Distance to observer
+sedlammin 0.001       ! minimum wavelength in SED file
+sedlammax 1000       ! maximum wavelength in SED file
+sedwavlin F          ! Linear spacing in SED file? 
+sedcosspaced F
+firstPA 0.0
+lastPa 180.0
+
+!-------------------------------- Image parameters --------------------------
+image T
+nimage 16
+!lambdaimage  220000.0
+imageaxisunits pc
+npixels 512
+inclination 90.0
+
+!-------------------------------- 8um --------------------------
+imagefile1 longcolourtest_22um_0.fits
+positionangle1 0.0
+lambdaimage1  80000.0
+
+imagefile2 longcolourtest_22um_90.fits
+positionangle2 90.0
+lambdaimage2  80000.0
+
+imagefile3 longcolourtest_22um_180.fits
+positionangle3 180.0
+lambdaimage3  80000.0
+
+imagefile4 longcolourtest_22um_270.fits
+positionangle4 270.0
+lambdaimage4  80000.0
+
+!-------------------------------- 5.8um --------------------------
+imagefile5 longcolourtest_5_8um_0.fits
+positionangle5 0.0
+lambdaimage5  58000.0
+
+imagefile6 longcolourtest_5_8um_90.fits
+positionangle6 90.0
+lambdaimage6  58000.0
+
+imagefile7 longcolourtest_5_8um_180.fits
+positionangle7 180.0
+lambdaimage7  58000.0
+
+imagefile8 longcolourtest_5_8um_270.fits
+positionangle8 270.0
+lambdaimage8  58000.0
+
+!-------------------------------- 4.5um --------------------------
+imagefile9 longcolourtest_4_5um_0.fits
+positionangle9 0.0
+lambdaimage9  45000.0
+
+imagefile10 longcolourtest_4_5um_90.fits
+positionangle10 90.0
+lambdaimage10  45000.0
+
+imagefile11 longcolourtest_4_5um_180.fits
+positionangle11 180.0
+lambdaimage11  45000.0
+
+imagefile12 longcolourtest_4_5um_270.fits
+positionangle12 270.0
+lambdaimage12  45000.0
+
+!-------------------------------- 3.6um --------------------------
+imagefile13 longcolourtest_3_6um_0.fits
+positionangle13 0.0
+lambdaimage13  36000.0
+
+imagefile14 longcolourtest_3_6um_90.fits
+positionangle14 90.0
+lambdaimage14  36000.0
+
+imagefile15 longcolourtest_3_6um_180.fits
+positionangle15 180.0
+lambdaimage15  36000.0
+
+imagefile16 longcolourtest_3_6um_270.fits
+positionangle16 270.0
+lambdaimage16  36000.0
