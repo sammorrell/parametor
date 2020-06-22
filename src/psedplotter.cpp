@@ -22,9 +22,9 @@ PSEDPlotter::PSEDPlotter(QString dir, QString filePrefix, QWidget *parent) :
     ui->grp_SEDGraph->setAutoDelete(false);
 
     //Setup Legend
-    this->legend = new QwtLegend(this);
-    ui->grp_SEDGraph->insertLegend(this->legend, QwtPlot::TopLegend);
-    this->legend->show();
+    QwtLegend *legend = new QwtLegend(this);
+    ui->grp_SEDGraph->insertLegend(legend, QwtPlot::TopLegend);
+    legend->show();
 
     //Init our Curves
     this->InitCurves();

@@ -1206,7 +1206,7 @@ void MainWindow::on_actionSED_Viewer_triggered()
     }
 
     if(this->activeSEDPlotter == 0x0) {
-        this->activeSEDPlotter = new PSEDPlotter(workingDir, this->ui->txt_sedNamePrefix->text());
+        this->activeSEDPlotter = new PSEDPlotter(workingDir, this->ui->txt_sedNamePrefix->text(), NULL);
         activeSEDPlotter->show();
         connect(activeSEDPlotter, SIGNAL(isGoingToClose(void)), this, SLOT(on_sedPlot_Destroyed(void)));
     } else {
@@ -1219,6 +1219,5 @@ void MainWindow::on_actionSED_Viewer_triggered()
 }
 
 void MainWindow::on_sedPlot_Destroyed() {
-    delete this->activeSEDPlotter;
-    this->activeSEDPlotter = 0x0;
+    this->activeSEDPlotter = NULL;
 }

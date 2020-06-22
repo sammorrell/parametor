@@ -21,7 +21,9 @@ macx {
     ICON = ParametorIcon.icns
 
     #Qwt libraries for Mac OS X
-    LIBS += -framework qwt
+    QWT_FRAMEWORK_PATH = /usr/local/Cellar/qwt/6.1.4/lib/
+    LIBS += -F$${QWT_FRAMEWORK_PATH} -framework qwt
+    INCLUDEPATH += $${QWT_FRAMEWORK_PATH}/qwt.framework/Versions/Current/Headers
     CONFIG += qwt
 }
 
