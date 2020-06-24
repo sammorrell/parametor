@@ -13,30 +13,6 @@ RC_FILE = parametor.rc
 QT += svg charts
 INCLUDEPATH += ./src/
 
-macx {
-    #APP_BUNDLE_FILES.files = torus_input_definitions.xml
-    #APP_BUNDLE_FILES.path = Contents/Resources
-    #QMAKE_BUNDLE_DATA += APP_BUNDLE_FILES
-    QMAKE_INFO_PLIST = Info.plist
-    ICON = ParametorIcon.icns
-
-    #Qwt libraries for Mac OS X
-    QWT_FRAMEWORK_PATH = /usr/local/Cellar/qwt/6.1.4/lib/
-    LIBS += -F$${QWT_FRAMEWORK_PATH} -framework qwt
-    INCLUDEPATH += $${QWT_FRAMEWORK_PATH}/qwt.framework/Versions/Current/Headers
-    CONFIG += qwt
-}
-
-win32 {
-    CONFIG(debug, debug|release) {
-        LIBS += -LC:\Qwt-6.1.0\lib -lqwtd
-    } else {
-        LIBS += -LC:\Qwt-6.1.0\lib -lqwt
-    }
-    INCLUDEPATH += C:\Qwt-6.1.0\include
-    CONFIG += qwt
-}
-
 SOURCES += \
         ./src/main.cpp\
         ./src/mainwindow.cpp \

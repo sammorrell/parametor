@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowModified(false);
 
     //Setup the Pointers for Single Instance Windows
-    activeSEDPlotter = 0x0;
+    activeSEDPlotter = NULL;
 }
 
 MainWindow::~MainWindow()

@@ -5,12 +5,10 @@
 #include <QDir>
 #include <QMessageBox>
 #include <QColor>
-#include <qwt_plot.h>
-#include <qwt_plot_curve.h>
-#include <qwt_plot_grid.h>
-#include <qwt_symbol.h>
-#include <qwt_legend.h>
-#include <qwt_date_scale_engine.h>
+#include <QtCharts>
+#include <QValueAxis>
+
+using namespace QtCharts;
 
 namespace Ui {
 class PSEDPlotter;
@@ -47,7 +45,7 @@ public:
 
     //PlotType
     void PlotSED(QString prefixName = "", SEDPlotType type = SEDCombinedPlot);
-    QPolygonF ParseSEDDataFile(QString filename);
+    void ParseSEDDataFile(QString filename, QLineSeries* series);
     QPointF ParseSEDLine(QByteArray line);
     
 private:
@@ -58,15 +56,16 @@ private:
     QString workingDir;
     QString namePrefix;
 
-    //Plot Stuff
-    QwtLegend *legend;
-
     //Curves
-    QwtPlotCurve *combinedCurve;
-    QwtPlotCurve *stellarDirectCurve;
-    QwtPlotCurve *stellarScatteredCurve;
-    QwtPlotCurve *thermalDirectCurve;
-    QwtPlotCurve *thermalScatteredCurve;
+    QLineSeries *combinedCurve;
+    QLineSeries *stellarDirectCurve;
+    QLineSeries *stellarScatteredCurve;
+    QLineSeries *thermalDirectCurve;
+    QLineSeries *thermalScatteredCurve;
+
+    // Axes
+    QLogValueAxis *lambda_axis;
+    QLogValueAxis *flux_axis;
 
 signals:
     void isGoingToClose();
