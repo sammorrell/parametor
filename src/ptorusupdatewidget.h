@@ -17,6 +17,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <pcompileconfiguredialog.h>
+#include <QRegularExpression>
 
 namespace Ui {
 class PTorusUpdateWidget;

@@ -63,8 +63,8 @@ void PSEDPlotter::refreshSEDFiles() {
 
     wrkDir.setNameFilters(fileNameTemplates);
     foreach(QString file, wrkDir.entryList()) {
-        if(!listEntries.contains(file.remove(QRegExp(filePattern)))) {
-            listEntries << file.remove(QRegExp(filePattern));
+        if(!listEntries.contains(file.remove(QRegularExpression(filePattern)))) {
+            listEntries << file.remove(QRegularExpression(filePattern));
         }
     }
 

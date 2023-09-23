@@ -17,6 +17,7 @@
 #include <QVector>
 #include <QApplication>
 #include <QHash>
+#include <QRegularExpression>
 
 #include "math.h"
 #define PI 3.14159265

@@ -51,7 +51,7 @@ void PParameterData::loadDefinitions(PParameterData::FileSource source) {
 
         //Read the Element
         if(token == QXmlStreamReader::StartElement) {
-            if(xmlReader->name() == "group") {
+            if(xmlReader->name() == QString("group")) {
                 if(!inGroup) {
                     inGroup = true;
                     groupName = xmlReader->attributes().value("name").toString();
@@ -59,7 +59,7 @@ void PParameterData::loadDefinitions(PParameterData::FileSource source) {
                         this->paramDefinitions.insert(groupName, QMap<QString, PParameterDefinition>());
                     }
                 }
-            } else if(xmlReader->name() == "input") {
+            } else if(xmlReader->name() == QString("input")) {
                 QXmlStreamAttributes att = xmlReader->attributes();
                 PParameterDefinition def;
                 def.name = att.value("name").toString();
@@ -74,15 +74,15 @@ void PParameterData::loadDefinitions(PParameterData::FileSource source) {
                 }
 
                 //Optional Parameters
-                if(att.value("maximum") != "") {
+                if(att.value("maximum") != QString()) {
 
                 }
 
-                if(att.value("minimum") != "") {
+                if(att.value("minimum") != QString()) {
 
                 }
 
-                if(att.value("decimals") != "") {
+                if(att.value("decimals") != QString()) {
 
                 }
 
@@ -91,7 +91,7 @@ void PParameterData::loadDefinitions(PParameterData::FileSource source) {
         }
 
         if(token == QXmlStreamReader::EndElement) {
-            if(xmlReader->name() == "group" && inGroup == true) {
+            if(xmlReader->name() == QString("group") && inGroup == true) {
                 inGroup = false;
             }
         }
@@ -138,7 +138,7 @@ void PParameterData::loadGeometries(PParameterData::FileSource source) {
 
         //Read the Element
         if(token == QXmlStreamReader::StartElement) {
-            if(xmlReader->name() == "geometry") {
+            if(xmlReader->name() == QString("geometry")) {
                 if(!inGroup) {
                     inGroup = true;
                     groupName = xmlReader->attributes().value("name").toString();
@@ -146,7 +146,7 @@ void PParameterData::loadGeometries(PParameterData::FileSource source) {
                         this->geometries.insert(groupName, QList<PParameterDefinition>());
                     }
                 }
-            } else if(xmlReader->name() == "input") {
+            } else if(xmlReader->name() == QString("input")) {
                 QXmlStreamAttributes att = xmlReader->attributes();
                 PParameterDefinition def;
                 def.name = att.value("name").toString();
@@ -164,7 +164,7 @@ void PParameterData::loadGeometries(PParameterData::FileSource source) {
                 bool exists = false;
                 int replIndex;
                 if(!geometries.value(groupName).isEmpty() && def.name != "") {
-                    for(int i = 0; i < geometries.value(groupName).count(); i++) {
+                    for(int i = 0; i < geometries.value(groupName).size(); i++) {
                         if(geometries.value(groupName).at(i).name == def.name) {
                             exists = true;
                             replIndex = i;
@@ -185,7 +185,7 @@ void PParameterData::loadGeometries(PParameterData::FileSource source) {
         }
 
         if(token == QXmlStreamReader::EndElement) {
-            if(xmlReader->name() == "geometry" && inGroup == true) {
+            if(xmlReader->name() == QString("geometry") && inGroup == true) {
                 inGroup = false;
                 group.clear();
             }
@@ -241,7 +241,7 @@ void PParameterData::parseLine(QByteArray line) {
     QString property("");
     QString value("");
 
-    for (int i = 0; i < line.count(); i++) {
+    for (int i = 0; i < line.size(); i++) {
         chr = line.at(i);
 
         //Check to see if Character a comment
@@ -297,7 +297,7 @@ void PParameterData::parseLine(QByteArray line) {
     }
 
     //Write the value to params var for parsing later
-    if(property.count() != 0 && value.count() != 0) {
+    if(property.size() != 0 && value.size() != 0) {
         this->rawParams.insert(property, value);
     }
 } */
@@ -306,12 +306,11 @@ void PParameterData::parseLine(QByteArray line) {
     char chr;
     bool nextLine = false;
     ParseState state = Start;
-    bool isVector = false;
     QString property("");
     QString value("");
     QString tempBuffer;
 
-    for (int i = 0; i < line.count(); i++) {
+    for (int i = 0; i < line.size(); i++) {
         chr = line.at(i);
 
         //Check to see if Character a comment
@@ -356,7 +355,6 @@ void PParameterData::parseLine(QByteArray line) {
                     switch(chr) {
 
                         case 10 :
-                            isVector = false;
                             break;
 
                         case ' ' :
@@ -369,7 +367,6 @@ void PParameterData::parseLine(QByteArray line) {
                                 tempBuffer.clear();
                             }
                             value.append(QString(chr));
-                            isVector = false;
                             break;
                     }
                  break;
@@ -378,7 +375,7 @@ void PParameterData::parseLine(QByteArray line) {
     }
 
     //Write the value to params var for parsing later
-    if(property.count() != 0 && value.count() != 0) {
+    if(property.size() != 0 && value.size() != 0) {
         this->rawParams.insert(property, value);
     }
 }
@@ -486,7 +483,6 @@ void PParameterData::refineData(void) {
          dust.amax = this->getNum("amax" + QString::number(i));
          dust.qdist = this->getNum("qdist" + QString::number(i));
          this->dusts.append(dust);
-         i++;
      }
 
      //Clear the raw list to save memory
@@ -500,15 +496,15 @@ void PParameterData::refineData(void) {
 double PParameterData::getNum(QString key) {
     if(this->numParams.contains(key)) {
         return this->numParams.value(key);
-    } else if(key.contains(QRegExp("[0-9]+$"))) {
-        key.remove(QRegExp("[0-9]+$"));
+    } else if(key.contains(QRegularExpression("[0-9]+$"))) {
+        key.remove(QRegularExpression("[0-9]+$"));
         if(this->numParams.contains(key)) {
             return this->numParams.value(key);
         }
     }
 
     double retval;
-    key.remove(QRegExp("[0-9]+$"));
+    key.remove(QRegularExpression("[0-9]+$"));
     this->getDefault(key, retval);
     return retval;
 }
@@ -516,15 +512,15 @@ double PParameterData::getNum(QString key) {
 bool PParameterData::getBool(QString key) {
     if(this->boolParams.contains(key)) {
         return this->boolParams.value(key);
-    } else if(key.contains(QRegExp("[0-9]+$"))) {
-        key.remove(QRegExp("[0-9]+$"));
+    } else if(key.contains(QRegularExpression("[0-9]+$"))) {
+        key.remove(QRegularExpression("[0-9]+$"));
         if(this->boolParams.contains(key)) {
             return this->boolParams.value(key);
         }
     }
 
     bool retval;
-    key.remove(QRegExp("[0-9]+$"));
+    key.remove(QRegularExpression("[0-9]+$"));
     this->getDefault(key, retval);
     return retval;
 }
@@ -532,8 +528,8 @@ bool PParameterData::getBool(QString key) {
 QString PParameterData::getString(QString key) {
     if(this->stringParams.contains(key)) {
         return this->stringParams.value(key);
-    }else if(key.contains(QRegExp("[0-9]+$"))) {
-        key.remove(QRegExp("[0-9]+$"));
+    }else if(key.contains(QRegularExpression("[0-9]+$"))) {
+        key.remove(QRegularExpression("[0-9]+$"));
         if(this->stringParams.contains(key)) {
             return this->stringParams.value(key);
         }
@@ -553,20 +549,20 @@ QVector<double> PParameterData::getVector(QString key) {
         valString = this->stringParams.value(key);
         split = valString.split(". ");
 
-        if(split.count() == 3) {
+        if(split.size() == 3) {
             returnvec[0] = split.at(0).toDouble();
             returnvec[1] = split.at(1).toDouble();
             returnvec[2] = split.at(2).toDouble();
         }
 
-    } else if(key.contains(QRegExp("[0-9]+$"))) {
-        key.remove(QRegExp("//[0-9]+$//"));
+    } else if(key.contains(QRegularExpression("[0-9]+$"))) {
+        key.remove(QRegularExpression("//[0-9]+$//"));
 
         if(this->stringParams.contains(key)) {
             valString = this->stringParams.value(key);
             split = valString.split(".");
 
-            if(split.count() == 3) {
+            if(split.size() == 3) {
                 returnvec[0] = split.at(0).toDouble();
                 returnvec[1] = split.at(1).toDouble();
                 returnvec[2] = split.at(2).toDouble();
@@ -733,7 +729,7 @@ void PParameterData::writeComment(QString text) {
 
 void PParameterData::writeTuple(QString key, QString value) {
     parameterString.append(key + " " + value + "\n");
-    definedParameters.append(key.remove(QRegExp("[0-9]*$")));
+    definedParameters.append(key.remove(QRegularExpression("[0-9]*$")));
 }
 
 void PParameterData::writeLine() {
@@ -801,10 +797,10 @@ QString PParameterData::doubleToStr(double value) {
 
 QString PParameterData::vecToStr(QVector<double> value) {
     QString retval = "";
-    if(value.count() > 0) {
+    if(value.size() > 0) {
         retval = QString::number(value.at(0));
         value.remove(0);
-        for(int i = 0; i < value.count(); i++) {
+        for(int i = 0; i < value.size(); i++) {
             retval += " " + QString::number(value.at(i));
         }
     }
@@ -817,9 +813,9 @@ void PParameterData::renderImageParams() {
     PImageData img;
     int i = 0;
 
-    writeTuple("nimage", QString::number(this->images.count()));
+    writeTuple("nimage", QString::number(this->images.size()));
 
-    if(this->images.count() > 1) {
+    if(this->images.size() > 1) {
         while(imgs->hasNext()) {
             img = imgs->next();
             i++;
@@ -853,7 +849,7 @@ void PParameterData::renderSourceParams() {
     PSourceData source;
     int i = 0;
 
-    writeTuple("nsource", QString::number(this->sources.count()));
+    writeTuple("nsource", QString::number(this->sources.size()));
 
     while(sources->hasNext()) {
         source = sources->next();
@@ -874,7 +870,7 @@ void PParameterData::renderDustParams() {
     PDustData dust;
     int i = 0;
 
-    writeTuple("ndusttype", QString::number(this->dusts.count()));
+    writeTuple("ndusttype", QString::number(this->dusts.size()));
 
     while(dustList->hasNext()) {
         dust = dustList->next();

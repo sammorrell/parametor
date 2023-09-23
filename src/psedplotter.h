@@ -8,8 +8,6 @@
 #include <QtCharts>
 #include <QValueAxis>
 
-using namespace QtCharts;
-
 namespace Ui {
 class PSEDPlotter;
 }

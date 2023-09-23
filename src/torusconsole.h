@@ -8,6 +8,7 @@
 #include <QCloseEvent>
 #include <QMessageBox>
 #include <QFileSystemWatcher>
+#include <QRegularExpression>
 
 namespace Ui {
 class torusconsole;

@@ -24,6 +24,7 @@
 #include <typeinfo>
 #include <psedplotter.h>
 #include <qmath.h>
+#include <QRegularExpression>
 
 #define PI 3.14159265
 

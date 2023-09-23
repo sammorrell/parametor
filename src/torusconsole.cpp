@@ -35,7 +35,7 @@ torusconsole::torusconsole(QWidget *parent, QString torusPath, QString workingPa
     QString command;
     QStringList arguments;
     QString exeFile = torusPath.split("/").last();
-    QString exePath = torusPath.remove(QRegExp("/[a-zA-Z.]+$"));
+    QString exePath = torusPath.remove(QRegularExpression("/[a-zA-Z.]+$"));
     QString workingDirStr = workingPath;
     QProcessEnvironment env;
 

@@ -149,7 +149,7 @@ void PTorusUpdateWidget::extractFinished(int status, QProcess::ExitStatus exitSt
 
         //Setup File System Watcher
         this->watcher = new QFileSystemWatcher();
-        this->fileList = this->buildDir->entryList(QStringList() << "*.f90" << "*.F90", QDir::Files).replaceInStrings(QRegExp("(f90|F90)"), "o");
+        this->fileList = this->buildDir->entryList(QStringList() << "*.f90" << "*.F90", QDir::Files).replaceInStrings(QRegularExpression("(f90|F90)"), "o");
         watcher->addPath(this->buildDir->path());
         connect(watcher, SIGNAL(directoryChanged(QString)), this, SLOT(buildDirChanged(QString)));
         ui->progressBar->setMaximum(this->fileList.count() + 1);

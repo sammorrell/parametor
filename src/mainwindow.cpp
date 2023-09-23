@@ -137,7 +137,7 @@ void MainWindow::refreshUI(void) {
     /* Generate the Angles for the Angles Boxes */
     if(this->params.stringParams.contains("inclinations")) {
         QString incString = this->params.getString("inclinations");
-        QStringList incs = incString.split(QRegExp(" "));
+        QStringList incs = incString.split(QRegularExpression(" "));
 
         QString itemStr;
         foreach(itemStr, incs) {
@@ -164,7 +164,7 @@ void MainWindow::refreshUI(void) {
 
     if(this->params.stringParams.contains("posangs")) {
         QString incString = this->params.getString("posangs");
-        QStringList incs = incString.split(QRegExp(" "));
+        QStringList incs = incString.split(QRegularExpression(" "));
 
         QString itemStr;
         foreach(itemStr, incs) {
@@ -871,12 +871,12 @@ QStringList MainWindow::getExpectedOutputFiles() {
             QString pos;
 
             if(i < ui->lst_sedIncList->count()) {
-                inc = inc.sprintf("%03g", round(ui->lst_sedIncList->item(incidx)->text().toFloat()));
-            } else { inc = inc.sprintf("%03d", 0); }
+                inc = inc.asprintf("%03g", round(ui->lst_sedIncList->item(incidx)->text().toFloat()));
+            } else { inc = inc.asprintf("%03d", 0); }
 
             if(i < ui->lst_sedPosList->count()) {
-                pos = pos.sprintf("%03g", round(ui->lst_sedPosList->item(posidx)->text().toFloat()));
-            } else { pos = pos.sprintf("%03d", 0); }
+                pos = pos.asprintf("%03g", round(ui->lst_sedPosList->item(posidx)->text().toFloat()));
+            } else { pos = pos.asprintf("%03d", 0); }
 
             qDebug() << inc << " - " << pos;
 
